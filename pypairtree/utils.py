@@ -1,4 +1,5 @@
 from pathlib import Path
+import argparse
 
 
 second_pass_e = {'/': '=',
@@ -74,3 +75,94 @@ def desanitize_string(i):
         if len(i) == 0:
             break
     return "".join(new_id)
+
+
+def path_to_id_app():
+    parser = argparse.ArgumentParser("Convert a ppath to an identifier.")
+
+    parser.add_argument(
+        "input_path",
+        action="store",
+        type=str
+    )
+    parser.add_argument(
+        "--root",
+        help="The root of the identifier path, if applicable",
+        action="store",
+        default=None,
+        type=str
+    )
+    parser.add_argument(
+        "--encapsulation",
+        help="An encapsulation directory name to remove from the end of the " +
+        "path, if appropriate.",
+        action='store',
+        default=None,
+        type=str
+    )
+    parser.add_argument(
+        "--intraobjectaddress",
+        help="An intraobject address to remove from the end of the path, " +
+        "if appropriate.",
+        action='store',
+        default=None,
+        type=str
+    )
+
+    args = parser.parse_args()
+
+    p = Path(args.input_path)
+    if args.intraobjectaddress:
+        p = Path(str(p).rstrip(args.intraobjectaddress))
+    if args.encapsulation:
+        p = Path(str(p).rstrip(args.encapsulation))
+    print(path_to_identifier(p, root=args.root))
+
+
+def id_to_path_app():
+    parser = argparse.ArgumentParser("Convert an identifier to a ppath.")
+
+    parser.add_argument(
+        "input_identifier",
+        action="store",
+        type=str
+    )
+    parser.add_argument(
+        "--root",
+        help="The root to prepend to the path, if applicable",
+        action="store",
+        default=None,
+        type=str
+    )
+    parser.add_argument(
+        "--encapsulation",
+        help="An encapsulation directory name to append to the path, " +
+        "if applicable",
+        action="store",
+        default=None,
+        type=str
+    )
+    parser.add_argument(
+        "--intraobjectaddress",
+        help="An intraobject address to append to the path, if applicable. " +
+        "NOTE: Requires an encapsulation directory name also be present.",
+        action='store',
+        default=None,
+        type=str
+    )
+
+    args = parser.parse_args()
+
+    if args.intraobjectaddress and not args.encapsulation:
+        raise ValueError("In order to construct a path with an " +
+                         "intraobject address you must also supply " +
+                         "an encapsulation directory name.")
+
+
+    p = identifier_to_path(args.input_identifier, root=args.root)
+    if args.encapsulation:
+        p = Path(p, args.encapsulation)
+    if args.intraobjectaddress:
+        p = Path(p, args.intraobjectaddress)
+    print(str(p))
+
