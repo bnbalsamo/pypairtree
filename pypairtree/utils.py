@@ -10,13 +10,13 @@ second_pass_d = {'=': '/',
                  ',': '.'}
 
 
-def path_to_identifier(path, root=None):
+def path_to_identifier(path, root=None, os_root_str="/"):
     if root is not None:
         path = Path(path.relative_to(root))
     if not isinstance(path, Path):
         path = path(str(path))
     x = path.parts
-    if x[0] == "/":
+    if x[0] == os_root_str:
         x = x[1:]
     identifier = "".join(x)
     return desanitize_string(identifier)
