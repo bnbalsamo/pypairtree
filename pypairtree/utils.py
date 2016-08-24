@@ -50,7 +50,7 @@ def sanitize_string(i):
                 int(hex(ord(c)), 16) > 126:
             new_id.append("^{}".format(hex(ord(c))[2:]))
         elif int(hex(ord(c)), 16) in [34, 42, 43, 44, 60,
-                                      61, 63, 63, 92, 94, 124]:
+                                      61, 62, 63, 92, 94, 124]:
             new_id.append("^{}".format(hex(ord(c))[2:]))
         else:
             new_id.append(c)
