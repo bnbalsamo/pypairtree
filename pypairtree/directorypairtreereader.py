@@ -61,7 +61,6 @@ class DirectoryPairTreeReader(object):
                 if self.object_reader:
                     r = self.object_reader(
                         x.path,
-                        id_prefix=id_prefix,
                         identifier=obj_id
                     )
                     o = r.read()

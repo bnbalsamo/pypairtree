@@ -12,11 +12,10 @@ from .intraobjectbytestream import IntraObjectByteStream
 
 
 class DirectoryPairTreeObjectReader(object):
-    def __init__(self, path, identifier=None, id_prefix=None):
+    def __init__(self, path, identifier=None):
         self._path = None
 
         self.path = path
-        self.id_prefix = id_prefix
         self.identifier = identifier
 
     def get_path(self):
@@ -38,11 +37,9 @@ class DirectoryPairTreeObjectReader(object):
                     stack.append(y)
             elif x.is_file():
                 ioa = str(Path(x.path).relative_to(self.path))
-                if self.id_prefix:
-                    ioa = self.id_prefix + ioa
                 iobs = IntraObjectByteStream(
                     Path(x.path),
-                    intraobjectaddress=str(Path(x.path).relative_to(self.path))
+                    intraobjectaddress=str(ioa)
                 )
                 obj.add_bytestream(iobs)
         return obj
