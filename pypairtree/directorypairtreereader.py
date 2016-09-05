@@ -54,7 +54,7 @@ class DirectoryPairTreeReader(object):
             x = stack.pop()
             if x.is_dir() and len(x.name) > 2:
                 obj_id = path_to_identifier(
-                    Path(x.path).relative_to(self.pairtree_dir)
+                    Path(x.path).parent.relative_to(self.pairtree_dir)
                 )
                 if id_prefix:
                     obj_id = id_prefix + obj_id

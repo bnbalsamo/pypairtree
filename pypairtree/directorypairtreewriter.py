@@ -19,7 +19,7 @@ class DirectoryPairTreeWriter(object):
         self.pairtree = pairtree
         self.containing_dir = containing_dir
         self.root_dir_name = root_dir_name
-        self.identifier_prefix = None
+        self.identifier_prefix = identifier_prefix
         self.objwriter = objwriter
 
     def get_pairtree(self):
@@ -52,7 +52,7 @@ class DirectoryPairTreeWriter(object):
         return self._root_dir_name
 
     def set_root_dir_name(self, x):
-        if not isinstance(str, x):
+        if not isinstance(x, str):
             raise TypeError()
         self._root_dir_name = x
 
@@ -63,8 +63,8 @@ class DirectoryPairTreeWriter(object):
         return self._identifier_prefix
 
     def set_identifier_prefix(self, x):
-        if not isinstance(x, str):
-            raise TypeError()
+        if not isinstance(x, str) and x is not None:
+            raise TypeError(str(type(x)))
         self._identifier_prefix = x
 
     def del_identifier_prefix(self):
@@ -100,8 +100,10 @@ class DirectoryPairTreeWriter(object):
             obj_id = obj.identifier
             if self.identifier_prefix:
                 obj_id = obj.identifier.lstrip(self.identifier_prefix)
+            print("ID: {}".format(obj_id))
             obj_path = identifier_to_path(obj_id,
                                           root=pt_dir)
+            print("PATH: {}".format(obj_path))
             obj_path = Path(obj_path, obj.encapsulation)
             makedirs(str(obj_path), exist_ok=True)
             o_writer = self.objwriter(obj, obj_path)

@@ -9,6 +9,9 @@ class DirectoryPairTreeObjectWriter(object):
         self._obj = None
         self._dir_path = None
 
+        self.obj = obj
+        self.dir_path = dir_path
+
     def get_obj(self):
         return self._obj
 
