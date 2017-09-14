@@ -1,0 +1,15 @@
+language: python
+python:
+    - "3.5"
+before_script:
+    - pip install pytest coverage python-coveralls flake8
+install: 
+    - "python setup.py install"
+    - "pip install -r requirements.txt"
+    - "pip install -r requirements_dev.txt"
+script: 
+    - coverage run --source pypairtree -m py.test 
+    - flake8 --exit-zero
+after_success:
+    - coverage report
+    - coveralls

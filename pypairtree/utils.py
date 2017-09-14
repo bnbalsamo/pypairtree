@@ -158,11 +158,9 @@ def id_to_path_app():
                          "intraobject address you must also supply " +
                          "an encapsulation directory name.")
 
-
     p = identifier_to_path(args.input_identifier, root=args.root)
     if args.encapsulation:
         p = Path(p, args.encapsulation)
     if args.intraobjectaddress:
         p = Path(p, args.intraobjectaddress)
     print(str(p))
-

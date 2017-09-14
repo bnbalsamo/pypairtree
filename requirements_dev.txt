@@ -1,0 +1,9 @@
+pip
+bumpversion
+wheel
+flake8
+coverage
+pytest
+twine
+autopep8
+check-manifest
