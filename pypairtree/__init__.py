@@ -19,7 +19,7 @@ from .utils import identifier_to_path, path_to_identifier, \
 
 __author__ = "Brian Balsamo"
 __email__ = "brian@brianbalsamo.com"
-__version__ = "0.0.2"
+__version__ = "0.0.3"
 
 
 class PairTree(object):

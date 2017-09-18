@@ -9,7 +9,7 @@ def readme():
 setup(
     name="pypairtree",
     description="A python package for creating and manipulating pairtrees.",
-    version="0.0.2",
+    version="0.0.3",
     long_description=readme(),
     author="Brian Balsamo",
     author_email="brian@brianbalsamo.com",
